@@ -7,10 +7,23 @@ var bot = new Twit({
     access_token_secret: process.env.LEARNINGBOT_ACCESS_TOKEN_SECRET,
     timeout_ms: 60*1000
   });
-bot.post('statuses/update', {status: 'This tweet is from my twitter bot'}, function(err, data, response) {
-  if(err) {
-    console.log(`this is the error ${err}`)
-    return;
-  }
-  console.log(`Your message ${data.text} was posted on your account`)
-})
+
+//This code posts a status to the profile
+// bot.post('statuses/update', {status: 'This tweet is from my twitter bot'}, function(err, data, response) {
+//   if(err) {
+//     console.log(`this is the error ${err}`)
+//     return;
+//   }
+//   console.log(`Your message ${data.text} was posted on your account`)
+// })
+
+
+  //Get a list of followers
+
+  var myFollowers = bot.get('followers/list', function(error, data) {
+    if(error) {
+      console.log(`Something went wrong!! ${error}`)
+      return;
+    }
+    data.users.forEach((user) => console.log(user.name))
+  })
