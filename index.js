@@ -30,11 +30,21 @@ var bot = new Twit({
 
   //Get the list of tweets
 
-  var latestTweets = () => bot.get('statuses/home_timeline', {count: 5}, function(err, data, response) {
-    if(err) {
-      console.log("Something went wrong");
-      return
+  // var latestTweets = () => bot.get('statuses/home_timeline', {count: 5}, function(err, data, response) {
+  //   if(err) {
+  //     console.log("Something went wrong");
+  //     return
+  // }
+  //   console.log(data.forEach((item) => console.log(`Tweet from ${item.user.screen_name} ====> ${item.text}`)));
+  // })
+  // latestTweets()
+
+//search tweets
+
+bot.get('search/tweets', {q: 'Battlefield1', count: 5}, function(err, data, response) {
+  if(err){
+    console.log(err)
+    return
   }
-    console.log(data.forEach((item) => console.log(`Tweet from ${item.user.screen_name} ====> ${item.text}`)));
-  })
-  latestTweets()
+  data.statuses.forEach((tweet) => console.log(tweet))
+})
